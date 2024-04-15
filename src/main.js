@@ -1,9 +1,6 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
-
 import { fetchCards } from './js/pixabay-api';
 import { renderCards } from './js/render-functions';
 
@@ -18,11 +15,6 @@ let searchQuery = '';
 
 searchForm.addEventListener('submit', onSearchFormSubmit);
 loadMoreBtn.addEventListener('click', onLoadMore);
-
-const lightbox = new SimpleLightbox('.card-item a', {
-  captionsData: 'alt',
-  captionDelay: 250,
-});
 
 async function onSearchFormSubmit(e) {
   e.preventDefault();
@@ -58,7 +50,6 @@ async function onLoadMore(e) {
   try {
     const data = await fetchCards(searchQuery, currentPage);
     renderCards(cardsList, data);
-    lightbox.refresh();
     showLoadMoreBtn(data.hits.length);
     handleLoadMore(data);
     smoothScrollToNextGroup();
